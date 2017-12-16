@@ -6,18 +6,20 @@ The `OpenShift Vagrant` project aims to make it easy to bring up a real OpenShif
 
 ## Prerequisite
 
-- Oracle VirtualBox
-- Vagrant (2.0 or above)
+- Host machine must have at least 4GB memory
+- Oracle VirtualBox installed on your host machine
+- Vagrant (2.0 or above) installed on your host machine
+- Vagrant plugin `vagrant-hostmanager` must be installed
 
 ## OpenShift Origin Version Support
 
 Currently this project pre-configured and support 3 major versions of the OpenShift Origin, which are
 
 - [OpenShift Origin release v3.6.0](https://github.com/openshift/origin/releases/tag/v3.6.0)
-- [OpenShift Origin release v3.6.1](https://github.com/openshift/origin/releases/tag/v3.6.1)
+- [OpenShift Origin release v3.6.1 (default)](https://github.com/openshift/origin/releases/tag/v3.6.1)
 - [OpenShift Origin release v3.7.0](https://github.com/openshift/origin/releases/tag/v3.7.0)
 
-But, it's very easy to customize the respected ansible hosts file in order to supprot other incoming major versions.
+But, it's very easy to customize the respected ansible hosts file in order to support other incoming major versions.
 
 The `Vagrantfile` uses Origin `v3.6.1` and openshift-ansible `release-3.6` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
 
@@ -26,7 +28,7 @@ The `Vagrantfile` uses Origin `v3.6.1` and openshift-ansible `release-3.6` branc
 
 The following table lists the corresponding version relationships between Origin and openshift-ansible:
 
-| OpenShift Origin version | openshift-ansible version |
+| OpenShift Origin version | openshift-ansible branch |
 | --- | --- |
 | v3.6.0 | release-3.6 |
 | v3.6.1 | release-3.6 |
@@ -49,22 +51,20 @@ After adjusting your expected version information, now it's time to bring your c
 $ vagrant up
 ```
 
-### Copy Private Keys
+### Provisioning Private Keys
 
 ```bash
 $ vagrant provision --provision-with master-key,node01-key,node02-key
 ```
 
-### Install Origin Using Ansible
+### Install Origin Cluster Using Ansible
 
 ```bash
-$ vagrant ssh master
-$ # The following command will be executed within master VM
-$ ansible-playbook /home/vagrant/openshift-ansible/playbooks/byo/config.yml
+$ vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/byo/config.yml'
 ```
 
 ### Open Web Console
 
-In browser of your host, open the following page: https://master.example.com:8443/ and you should see OpenShift Web Console login page.
+In browser of your host, open the following page: https://master.example.com:8443/ and you should see OpenShift Web Console login page. The default login account is **admin/handhand**
 
 *Have fun with OpenShift Origin and Vagrant :p*
