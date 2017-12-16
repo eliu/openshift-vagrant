@@ -2,18 +2,18 @@
 
 ## 概述
 
-`OpenShift Vagrant` 项目旨在通过针对目前 OpenShift Origin 各个主流版本进行预配置的 `Vagrantfile` 文件，使开发者在本机快速搭建真正的 OpenShift Origin 集群环境。
+`OpenShift Vagrant` 项目旨在通过针对目前 OpenShift Origin 各个主流版本进行预配置的 `Vagrantfile` 文件，使开发者在本机快速搭建真正的 OpenShift Origin 集群环境。
 
 ## 先决条件
 
-- 主机的内存至少4GB
+- 主机的内存至少4GB
 - 预装 Oracle VirtualBox (v5.1.30)
 - 预装 Vagrant (v2.0或更高)
 - 预装 Vagrant 插件 vagrant-hostmanager (v1.8.7)
 
 ## OpenShift Origin 版本支持
 
-目前本项目预配置且支持以下3个 OpenShift Origin 主版本，他们是：
+目前本项目预配置且支持以下3个 OpenShift Origin 主版本，他们是：
 
 - [OpenShift Origin release v3.6.0](https://github.com/openshift/origin/releases/tag/v3.6.0)
 - [OpenShift Origin release v3.6.1 （默认配置）](https://github.com/openshift/origin/releases/tag/v3.6.1)
