@@ -2,7 +2,7 @@
 
 ## 概述
 
-`OpenShift Vagrant` 项目旨在通过针对目前 OpenShift Origin 各个主流版本进行预配置的 `Vagrantfile` 文件，使开发者在本机快速搭建真正的 OpenShift Origin 集群环境。
+`OpenShift Vagrant` 项目旨在通过针对目前 OpenShift Origin 各个主流版本进行预配置的 `Vagrantfile` 文件，使开发者在本机快速搭建真正的 OpenShift Origin 集群环境。
 
 ## 先决条件
 
@@ -21,7 +21,6 @@
 
 不过，支持以后的其他主版本也非常容易，只需要修改对应文件中的版本戳之后另存为新的文件即可。
 
-The `Vagrantfile` uses Origin `v3.6.1` and openshift-ansible `release-3.6` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
 Vagrant 配置文件默认使用 OpenShift Origin v3.6.1 和 openshift-ansible release-3.6 分支做为集群安装部署的版本。不过您也可以很容易更改这个默认值，只需要调整以下两个变量即可：
 
 1. `OPENSHIFT_VERSION`
