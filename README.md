@@ -1,5 +1,11 @@
 # OpenShift Vagrant
 
+[![Licensed under Apache License version 2.0](https://img.shields.io/github/license/openshift/origin.svg?maxAge=2592000)](https://www.apache.org/licenses/LICENSE-2.0)
+
+![image](assets/openshift-vagrant-logo.png)
+
+---
+
 ## Overview
 
 The `OpenShift Vagrant` project aims to make it easy to bring up a real OpenShift Origin cluster by providing pre-configured `Vagrantfile` of several major versions of Origin.
@@ -61,6 +67,14 @@ $ vagrant provision --provision-with master-key,node01-key,node02-key
 
 ```bash
 $ vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/byo/config.yml'
+```
+
+### `oc-up.sh`
+
+The above 3 steps have been grouped together as one script for you. To bring your cluster up, just use the following command:
+
+```bash
+$ ./oc-up.sh
 ```
 
 ### Open Web Console

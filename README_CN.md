@@ -1,5 +1,11 @@
 # OpenShift Vagrant
 
+[![Licensed under Apache License version 2.0](https://img.shields.io/github/license/openshift/origin.svg?maxAge=2592000)](https://www.apache.org/licenses/LICENSE-2.0)
+
+![image](assets/openshift-vagrant-logo.png)
+
+---
+
 ## 概述
 
 `OpenShift Vagrant` 项目旨在通过针对目前 OpenShift Origin 各个主流版本进行预配置的 `Vagrantfile` 文件，使开发者在本机快速搭建真正的 OpenShift Origin 集群环境。
@@ -61,6 +67,14 @@ $ vagrant provision --provision-with master-key,node01-key,node02-key
 
 ```bash
 $ vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/byo/config.yml'
+```
+
+### `oc-up.sh`
+
+以上三个启动步骤已经组织到一个 Shell 脚本中，您只需要在项目主目录执行以下命令既可完成所有启动步骤：
+
+```bash
+$ ./oc-up.sh
 ```
 
 ### 访问 Web Console
