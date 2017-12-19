@@ -91,7 +91,7 @@ Vagrant.configure("2") do |config|
     end
 
     node.vm.provision "shell", inline: <<-SHELL
-      yum -y install git wget net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct vim telnet
+      yum -y install git wget net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct
       yum install -y epel-release
       yum install -y ansible pyOpenSSL python-cryptography python-lxml
       git clone -b #{OPENSHIFT_ANSIBLE_BRANCH} https://github.com/openshift/openshift-ansible.git /home/vagrant/openshift-ansible
