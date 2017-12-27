@@ -1,1 +1,2 @@
-ansible-hosts-* linguist-language=Ruby
+ansible-hosts linguist-language=Ansible
+Vagrantfile linguist-language=Ruby

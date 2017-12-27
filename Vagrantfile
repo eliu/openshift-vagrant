@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "centos-7-1710.01"
+  config.vm.box = "centos/7"
 
   # if Vagrant.has_plugin?('landrush')
   #   config.landrush.enabled = true
