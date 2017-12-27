@@ -21,13 +21,13 @@
 
 目前本项目预配置且支持以下3个 OpenShift Origin 主版本，他们是：
 
+- [OpenShift Origin release v3.7.0 （默认配置）](https://github.com/openshift/origin/releases/tag/v3.7.0)
+- [OpenShift Origin release v3.6.1](https://github.com/openshift/origin/releases/tag/v3.6.1)
 - [OpenShift Origin release v3.6.0](https://github.com/openshift/origin/releases/tag/v3.6.0)
-- [OpenShift Origin release v3.6.1 （默认配置）](https://github.com/openshift/origin/releases/tag/v3.6.1)
-- [OpenShift Origin release v3.7.0](https://github.com/openshift/origin/releases/tag/v3.7.0)
 
 不过，支持以后的其他主版本也非常容易，只需要修改对应文件中的版本戳之后另存为新的文件即可。
 
-Vagrant 配置文件默认使用 OpenShift Origin v3.6.1 和 openshift-ansible release-3.6 分支做为集群安装部署的版本。不过您也可以很容易更改这个默认值，只需要调整以下两个变量即可：
+Vagrant 配置文件默认使用 OpenShift Origin v3.7.0 和 openshift-ansible release-3.7 分支做为集群安装部署的版本。不过您也可以很容易更改这个默认值，只需要调整以下两个变量即可：
 
 1. `OPENSHIFT_VERSION`
 2. `OPENSHIFT_ANSIBLE_BRANCH`
@@ -43,13 +43,15 @@ Vagrant 配置文件默认使用 OpenShift Origin v3.6.1 和 openshift-ansible r
 
 ## 使用方法
 
-在调整了对应的版本之后，接下来就可以准备启动 Vagrant 虚拟机和部署 OpenShift Origin 集群了。Vagrant 会创建并启动三台 VirtualBox 虚拟机，具体信息如下表：
+在调整了对应的版本之后，接下来就可以准备启动 Vagrant 虚拟机和部署 OpenShift Origin 集群了。
+
+Vagrant 会创建并启动三台 VirtualBox 虚拟机，网段由变量 `NETWORK_BASE` 指定。 具体信息如下表：
 
 | VM 节点 | 节点 IP | 角色 |
 | --- | --- | --- |
-| master | 192.168.101.101 | master, etcd |
-| node01 | 192.168.101.102 | node, lb |
-| node02 | 192.168.101.103 | node |
+| master | #{NETWORK_BASE}.101 | master, etcd |
+| node01 | #{NETWORK_BASE}.102 | node, lb |
+| node02 | #{NETWORK_BASE}.103 | node |
 
 ### 启动 Vagrant 虚拟机
 

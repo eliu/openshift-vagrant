@@ -16,9 +16,9 @@
 # limitations under the License.
 #
 
-OPENSHIFT_VERSION = 'v3.6.1'
-OPENSHIFT_ANSIBLE_BRANCH = 'release-3.6'
-NETWORK_BASE = '192.168.101'
+OPENSHIFT_VERSION = '3.7.0'
+OPENSHIFT_ANSIBLE_BRANCH = 'release-3.7'
+NETWORK_BASE = '192.168.150'
 INTEGRATION_START_SEGMENT = 101
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -96,7 +96,10 @@ Vagrant.configure("2") do |config|
       yum install -y ansible pyOpenSSL python-cryptography python-lxml
       git clone -b #{OPENSHIFT_ANSIBLE_BRANCH} https://github.com/openshift/openshift-ansible.git /home/vagrant/openshift-ansible
       mv /etc/ansible/hosts /etc/ansible/hosts.bak
-      cp -f /vagrant/ansible-hosts-#{OPENSHIFT_VERSION} /etc/ansible/hosts
+      cat /vagrant/ansible-hosts \
+        | sed "s/{{OO_VERSION}}/#{OPENSHIFT_VERSION}/g" \
+        | sed "s/{{NETWORK_BASE}}/#{NETWORK_BASE}/g" \
+        > /etc/ansible/hosts
       mkdir -p /home/vagrant/.ssh
       bash -c 'echo "Host *" >> /home/vagrant/.ssh/config'
       bash -c 'echo "StrictHostKeyChecking no" >> /home/vagrant/.ssh/config'

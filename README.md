@@ -21,13 +21,13 @@ The `OpenShift Vagrant` project aims to make it easy to bring up a real OpenShif
 
 Currently this project pre-configured and support 3 major versions of the OpenShift Origin, which are
 
+- [OpenShift Origin release v3.7.0 (default)](https://github.com/openshift/origin/releases/tag/v3.7.0)
+- [OpenShift Origin release v3.6.1](https://github.com/openshift/origin/releases/tag/v3.6.1)
 - [OpenShift Origin release v3.6.0](https://github.com/openshift/origin/releases/tag/v3.6.0)
-- [OpenShift Origin release v3.6.1 (default)](https://github.com/openshift/origin/releases/tag/v3.6.1)
-- [OpenShift Origin release v3.7.0](https://github.com/openshift/origin/releases/tag/v3.7.0)
 
 But, it's very easy to customize the respected ansible hosts file in order to support other incoming major versions.
 
-The `Vagrantfile` uses Origin `v3.6.1` and openshift-ansible `release-3.6` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
+The `Vagrantfile` uses Origin `v3.7.0` and openshift-ansible `release-3.7` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
 
 1. `OPENSHIFT_VERSION`
 2. `OPENSHIFT_ANSIBLE_BRANCH`
@@ -43,13 +43,17 @@ The following table lists the corresponding version relationships between Origin
 
 ## Getting Started
 
-After adjusting your expected version information, now it's time to bring your cluster up and running. This Vagrantfile will create 3 VMs in VirtualBox listed below:
+After adjusting your expected version information, now it's time to bring your cluster up and running. 
+
+This Vagrantfile will create 3 VMs in VirtualBox and the network base will be specified by variable `NETWORK_BASE`.
+
+Checkout the table below for more details:
 
 | VM Node | Private IP | Roles |
 | --- | --- | --- |
-| master | 192.168.101.101 | master, etcd |
-| node01 | 192.168.101.102 | node, lb |
-| node02 | 192.168.101.103 | node |
+| master | #{NETWORK_BASE}.101 | master, etcd |
+| node01 | #{NETWORK_BASE}.102 | node, lb |
+| node02 | #{NETWORK_BASE}.103 | node |
 
 ### Bring Vagrant Up
 
