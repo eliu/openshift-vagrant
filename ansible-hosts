@@ -19,7 +19,6 @@
 masters
 nodes
 etcd
-lb
 
 # Set variables common for all OSEv3 hosts
 [OSEv3:vars]
@@ -30,23 +29,19 @@ ansible_ssh_user=vagrant
 ansible_become=true
 
 openshift_deployment_type=origin
-
-# Specify an exact container image tag to install or configure.
-# WARNING: This value will be used for all hosts in containerized environments, even those that have another version installed.
-# This could potentially trigger an upgrade and downtime, so be careful with modifying this value after the cluster is set up.
-openshift_image_tag=v{{OO_VERSION}}
+openshift_release={{OPENSHIFT_RELEASE}}
 
 # Specify an exact rpm version to install or configure.
 # WARNING: This value will be used for all hosts in RPM based environments, even those that have another version installed.
 # This could potentially trigger an upgrade and downtime, so be careful with modifying this value after the cluster is set up.
-openshift_pkg_version=-{{OO_VERSION}}
+#openshift_pkg_version=-{{OPENSHIFT_PKG_VERSION}}
 
 # uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 # Default login account: admin / handhand
 openshift_master_htpasswd_users={'admin': '$apr1$gfaL16Jf$c.5LAvg3xNDVQTkk6HpGB1'}
 
-openshift_disable_check=disk_availability,memory_availability,docker_storage
+openshift_disable_check=disk_availability,memory_availability,docker_storage,docker_image_availability
 openshift_docker_options=" --selinux-enabled --log-driver=journald --storage-driver=overlay --registry-mirror=http://4a0fee72.m.daocloud.io "
 
 #
@@ -76,11 +71,7 @@ master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BA
 
 # host group for etcd
 [etcd]
-etcd.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
-
-# Load balancers
-[lb]
-lb.example.com openshift_ip={{NETWORK_BASE}}.102 openshift_host={{NETWORK_BASE}}.102 ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key"
+master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
 
 # host group for nodes, includes region info
 [nodes]

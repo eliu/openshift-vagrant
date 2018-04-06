@@ -16,9 +16,9 @@
 # limitations under the License.
 #
 
-OPENSHIFT_VERSION = '3.7.0'
-OPENSHIFT_ANSIBLE_BRANCH = 'release-3.7'
-NETWORK_BASE = '192.168.150'
+OPENSHIFT_RELEASE = "3.7"
+OPENSHIFT_ANSIBLE_BRANCH = "release-#{OPENSHIFT_RELEASE}"
+NETWORK_BASE = "192.168.150"
 INTEGRATION_START_SEGMENT = 101
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -97,7 +97,7 @@ Vagrant.configure("2") do |config|
       git clone -b #{OPENSHIFT_ANSIBLE_BRANCH} https://github.com/openshift/openshift-ansible.git /home/vagrant/openshift-ansible
       mv /etc/ansible/hosts /etc/ansible/hosts.bak
       cat /vagrant/ansible-hosts \
-        | sed "s/{{OO_VERSION}}/#{OPENSHIFT_VERSION}/g" \
+        | sed "s/{{OPENSHIFT_RELEASE}}/#{OPENSHIFT_RELEASE}/g" \
         | sed "s/{{NETWORK_BASE}}/#{NETWORK_BASE}/g" \
         > /etc/ansible/hosts
       mkdir -p /home/vagrant/.ssh

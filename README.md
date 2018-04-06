@@ -21,24 +21,22 @@ The `OpenShift Vagrant` project aims to make it easy to bring up a real OpenShif
 
 Currently this project pre-configured and support 3 major versions of the OpenShift Origin, which are
 
-- [OpenShift Origin release v3.7.0 (default)](https://github.com/openshift/origin/releases/tag/v3.7.0)
-- [OpenShift Origin release v3.6.1](https://github.com/openshift/origin/releases/tag/v3.6.1)
-- [OpenShift Origin release v3.6.0](https://github.com/openshift/origin/releases/tag/v3.6.0)
+- [OpenShift Origin 3.7 (default)](https://github.com/openshift/origin/releases/tag/v3.7.1)
+- [OpenShift Origin 3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
 
 But, it's very easy to customize the respected ansible hosts file in order to support other incoming major versions.
 
-The `Vagrantfile` uses Origin `v3.7.0` and openshift-ansible `release-3.7` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
+The `Vagrantfile` uses Origin `3.7` and openshift-ansible `release-3.7` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
 
-1. `OPENSHIFT_VERSION`
+1. `OPENSHIFT_RELEASE`
 2. `OPENSHIFT_ANSIBLE_BRANCH`
 
 The following table lists the corresponding version relationships between Origin and openshift-ansible:
 
 | OpenShift Origin version | openshift-ansible branch |
 | --- | --- |
-| v3.6.0 | release-3.6 |
-| v3.6.1 | release-3.6 |
-| v3.7.0 | release-3.7 |
+| 3.6 | release-3.6 |
+| 3.7 | release-3.7 |
 
 
 ## Getting Started
@@ -51,8 +49,8 @@ Checkout the table below for more details:
 
 | VM Node | Private IP | Roles |
 | --- | --- | --- |
-| master | #{NETWORK_BASE}.101 | master, etcd |
-| node01 | #{NETWORK_BASE}.102 | node, lb |
+| master | #{NETWORK_BASE}.101 | node, master, etcd |
+| node01 | #{NETWORK_BASE}.102 | node |
 | node02 | #{NETWORK_BASE}.103 | node |
 
 ### Bring Vagrant Up
