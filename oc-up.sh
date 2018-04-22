@@ -14,7 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+#!/bin/bash
+readonly openshift_release=`cat Vagrantfile | grep '^OPENSHIFT_RELEASE' | awk -F'=' '{print $2}' | sed 's/^[[:blank:]\"]*//;s/[[:blank:]\"]*$//'`
 
-vagrant up \
-    && vagrant provision --provision-with master-key,node01-key,node02-key \
-    && vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/byo/config.yml'
+vagrant up
+vagrant provision --provision-with master-key,node01-key,node02-key
+
+if [ "$openshift_release" \> "3.7" ]; then
+    vagrant ssh master \
+        -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/prerequisites.yml &&
+            ansible-playbook /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml'
+else
+    vagrant ssh master \
+        -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/byo/config.yml'
+fi

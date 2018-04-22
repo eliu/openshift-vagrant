@@ -21,7 +21,8 @@ The `OpenShift Vagrant` project aims to make it easy to bring up a real OpenShif
 
 Currently this project pre-configured and support 3 major versions of the OpenShift Origin, which are
 
-- [OpenShift Origin 3.7 (default)](https://github.com/openshift/origin/releases/tag/v3.7.1)
+- [OpenShift Origin 3.9 (default)](https://github.com/openshift/origin/releases/tag/v3.9.0)
+- [OpenShift Origin 3.7](https://github.com/openshift/origin/releases/tag/v3.7.2)
 - [OpenShift Origin 3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
 
 But, it's very easy to customize the respected ansible hosts file in order to support other incoming major versions.
@@ -35,8 +36,9 @@ The following table lists the corresponding version relationships between Origin
 
 | OpenShift Origin version | openshift-ansible branch |
 | --- | --- |
-| 3.6 | release-3.6 |
-| 3.7 | release-3.7 |
+| 3.9.x | release-3.9 |
+| 3.7.x | release-3.7 |
+| 3.6.x | release-3.6 |
 
 
 ## Getting Started
@@ -67,8 +69,18 @@ $ vagrant provision --provision-with master-key,node01-key,node02-key
 
 ### Install Origin Cluster Using Ansible
 
+Run the following comand if you would like to install origin previous to **release-3.8**:
+
 ```bash
 $ vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/byo/config.yml'
+```
+
+Run the following comand for origin 3.8 or above:
+
+```bash
+vagrant ssh master \
+        -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/prerequisites.yml &&
+            ansible-playbook /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml'
 ```
 
 ### `oc-up.sh`

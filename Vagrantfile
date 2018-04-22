@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-OPENSHIFT_RELEASE = "3.7"
+OPENSHIFT_RELEASE = "3.9"
 OPENSHIFT_ANSIBLE_BRANCH = "release-#{OPENSHIFT_RELEASE}"
 NETWORK_BASE = "192.168.150"
 INTEGRATION_START_SEGMENT = 101
@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     bash -c 'echo "export TZ=Asia/Shanghai" > /etc/profile.d/tz.sh'
-    yum -y update && sudo yum -y upgrade
+    #yum -y update && sudo yum -y upgrade
     yum -y install docker
     setenforce 0
     sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config

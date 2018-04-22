@@ -21,7 +21,8 @@
 
 目前本项目预配置且支持以下3个 OpenShift Origin 主版本，他们是：
 
-- [OpenShift Origin 3.7 （默认配置）](https://github.com/openshift/origin/releases/tag/v3.7.1)
+- [OpenShift Origin 3.9 （默认配置）](https://github.com/openshift/origin/releases/tag/v3.9.0)
+- [OpenShift Origin 3.7](https://github.com/openshift/origin/releases/tag/v3.7.1)
 - [OpenShift Origin 3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
 
 不过，支持以后的其他主版本也非常容易，只需要修改对应文件中的版本戳之后另存为新的文件即可。
@@ -35,8 +36,9 @@ Vagrant 配置文件默认使用 OpenShift Origin `3.7` 和 openshift-ansible `r
 
 | OpenShift Origin 版本 | openshift-ansible 分支 |
 | --- | --- |
-| 3.6 | release-3.6 |
-| 3.7 | release-3.7 |
+| 3.9.x | release-3.9 |
+| 3.7.x | release-3.7 |
+| 3.6.x | release-3.6 |
 
 
 ## 使用方法
@@ -65,8 +67,18 @@ $ vagrant provision --provision-with master-key,node01-key,node02-key
 
 ### 安装并部署 OpenShift Origin 集群
 
+安装 Origin 3.7 或之前的版本时，运行以下命令：
+
 ```bash
 $ vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/byo/config.yml'
+```
+
+安装 Origin 3.8 以上版本时，运行以下命令：
+
+```bash
+vagrant ssh master \
+        -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/prerequisites.yml &&
+            ansible-playbook /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml'
 ```
 
 ### `oc-up.sh`
