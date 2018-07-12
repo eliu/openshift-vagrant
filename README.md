@@ -69,13 +69,13 @@ $ vagrant provision --provision-with master-key,node01-key,node02-key
 
 ### Install Origin Cluster Using Ansible
 
-Run the following comand if you would like to install origin previous to **release-3.8**:
+Run the following command if you would like to install origin previous to **release-3.8**:
 
 ```bash
 $ vagrant ssh master -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/byo/config.yml'
 ```
 
-Run the following comand for origin 3.8 or above:
+Run the following command for origin 3.8 or above:
 
 ```bash
 vagrant ssh master \
