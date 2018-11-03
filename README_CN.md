@@ -21,13 +21,14 @@
 
 目前本项目预配置且支持以下3个 OpenShift Origin 主版本，他们是：
 
-- [OpenShift Origin 3.9 （默认配置）](https://github.com/openshift/origin/releases/tag/v3.9.0)
-- [OpenShift Origin 3.7](https://github.com/openshift/origin/releases/tag/v3.7.1)
+- [OpenShift Origin 3.10（默认配置）](https://github.com/openshift/origin/releases/tag/v3.10.0)
+- [OpenShift Origin 3.9 ](https://github.com/openshift/origin/releases/tag/v3.9.0)
+- [OpenShift Origin 3.7](https://github.com/openshift/origin/releases/tag/v3.7.2)
 - [OpenShift Origin 3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
 
 不过，支持以后的其他主版本也非常容易，只需要修改对应文件中的版本戳之后另存为新的文件即可。
 
-Vagrant 配置文件默认使用 OpenShift Origin `3.7` 和 openshift-ansible `release-3.7` 分支做为集群安装部署的版本，不过您也可以很容易更改这个默认值，只需要调整以下两个变量即可：
+Vagrant 配置文件默认使用 OpenShift Origin `3.10` 和 openshift-ansible `release-3.10` 分支做为集群安装部署的版本，不过您也可以很容易更改这个默认值，只需要调整以下两个变量即可：
 
 1. `OPENSHIFT_RELEASE`
 2. `OPENSHIFT_ANSIBLE_BRANCH`
@@ -36,6 +37,7 @@ Vagrant 配置文件默认使用 OpenShift Origin `3.7` 和 openshift-ansible `r
 
 | OpenShift Origin 版本 | openshift-ansible 分支 |
 | --- | --- |
+| 3.10.x | release-3.10 |
 | 3.9.x | release-3.9 |
 | 3.7.x | release-3.7 |
 | 3.6.x | release-3.6 |

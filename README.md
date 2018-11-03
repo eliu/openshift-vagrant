@@ -8,7 +8,7 @@
 
 ## Overview
 
-The `OpenShift Vagrant` project aims to make it easy to bring up a real OpenShift Origin cluster by providing pre-configured `Vagrantfile` of several major versions of Origin.
+The `OpenShift Vagrant` project aims to make it easy to bring up a real OpenShift Origin cluster by providing pre-configured `Vagrantfile` of several major versions of Origin on your local machine.
 
 ## Prerequisite
 
@@ -21,13 +21,14 @@ The `OpenShift Vagrant` project aims to make it easy to bring up a real OpenShif
 
 Currently this project pre-configured and support 3 major versions of the OpenShift Origin, which are
 
-- [OpenShift Origin 3.9 (default)](https://github.com/openshift/origin/releases/tag/v3.9.0)
+- [OpenShift Origin 3.10 (default)](https://github.com/openshift/origin/releases/tag/v3.10.0)
+- [OpenShift Origin 3.9](https://github.com/openshift/origin/releases/tag/v3.9.0)
 - [OpenShift Origin 3.7](https://github.com/openshift/origin/releases/tag/v3.7.2)
 - [OpenShift Origin 3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
 
 But, it's very easy to customize the respected ansible hosts file in order to support other incoming major versions.
 
-The `Vagrantfile` uses Origin `3.7` and openshift-ansible `release-3.7` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
+The `Vagrantfile` uses Origin `3.10` and openshift-ansible `release-3.10` branch by default. Feel free to adjust your versions by updating the following 2 variables in Vagrantfile:
 
 1. `OPENSHIFT_RELEASE`
 2. `OPENSHIFT_ANSIBLE_BRANCH`
@@ -36,6 +37,7 @@ The following table lists the corresponding version relationships between Origin
 
 | OpenShift Origin version | openshift-ansible branch |
 | --- | --- |
+| 3.10.x | release-3.10 |
 | 3.9.x | release-3.9 |
 | 3.7.x | release-3.7 |
 | 3.6.x | release-3.6 |

@@ -29,7 +29,7 @@ ansible_ssh_user=vagrant
 ansible_become=true
 
 openshift_deployment_type=origin
-openshift_release={{OPENSHIFT_RELEASE}}
+openshift_release='{{OPENSHIFT_RELEASE}}'
 
 # Specify an exact rpm version to install or configure.
 # WARNING: This value will be used for all hosts in RPM based environments, even those that have another version installed.
@@ -37,7 +37,7 @@ openshift_release={{OPENSHIFT_RELEASE}}
 #openshift_pkg_version=-{{OPENSHIFT_PKG_VERSION}}
 
 # uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
-openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'{{HTPASSWORD_FILENAME}}}]
 # Default login account: admin / handhand
 openshift_master_htpasswd_users={'admin': '$apr1$gfaL16Jf$c.5LAvg3xNDVQTkk6HpGB1'}
 
@@ -60,7 +60,8 @@ template_service_broker_install=false
 # Router selector (optional)
 # Router will only be created if nodes matching this label are present.
 # Default value: 'region=infra'
-openshift_hosted_router_selector='region=infra,router=true'
+openshift_router_selector='node-role.kubernetes.io/infra=true'
+openshift_registry_selector='node-role.kubernetes.io/infra=true'
 
 # default subdomain to use for exposed routes
 openshift_master_default_subdomain=openshift.example.com
@@ -72,9 +73,25 @@ master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BA
 # host group for etcd
 [etcd]
 master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key"
-
+#
 # host group for nodes, includes region info
+# For openshift_node_labels strategies, the following reference links might be helpful
+# to understand why we choose this current solution:
+# - https://github.com/openshift/openshift-ansible#setup
+# - https://github.com/openshift/openshift-ansible#node-group-definition-and-mapping
+# - https://docs.okd.io/3.7/install_config/install/advanced_install.html#configuring-node-host-labels
+# - https://docs.okd.io/3.9/install_config/install/advanced_install.html#configuring-node-host-labels
+# - https://docs.okd.io/3.10/install/configuring_inventory_file.html#configuring-node-host-labels
+#
+# The default node selector for 
+# release-3.9 ( or prev versions ): 'region=infra'
+# release-3.10: 'node-role.kubernetes.io/infra=true'
+# 
+# But release-3.9 starts to enable node roles features. For backward compatibilities, we
+# override the default values of openshift_router_selector and openshift_registry_selector
+# from 'region=infra' to 'node-role.kubernetes.io/infra=true'
+#
 [nodes]
-master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true openshift_node_labels="{'region': 'infra', 'router': 'true'}"
-node01.example.com openshift_ip={{NETWORK_BASE}}.102 openshift_host={{NETWORK_BASE}}.102 ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key" openshift_schedulable=true openshift_node_labels="{'region': 'infra', 'router': 'true'}"
-node02.example.com openshift_ip={{NETWORK_BASE}}.103 openshift_host={{NETWORK_BASE}}.103 ansible_ssh_private_key_file="/home/vagrant/.ssh/node02.key" openshift_schedulable=true openshift_node_labels="{'region': 'infra', 'router': 'true'}"
+master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true openshift_node_labels="{'node-role.kubernetes.io/infra': 'true', 'node-role.kubernetes.io/master': 'true'}" {{NODE_GROUP_MASTER_INFRA}}
+node01.example.com openshift_ip={{NETWORK_BASE}}.102 openshift_host={{NETWORK_BASE}}.102 ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key" openshift_schedulable=true openshift_node_labels="{'node-role.kubernetes.io/compute': 'true'}" {{NODE_GROUP_COMPUTE}}
+node02.example.com openshift_ip={{NETWORK_BASE}}.103 openshift_host={{NETWORK_BASE}}.103 ansible_ssh_private_key_file="/home/vagrant/.ssh/node02.key" openshift_schedulable=true openshift_node_labels="{'node-role.kubernetes.io/compute': 'true'}" {{NODE_GROUP_COMPUTE}}

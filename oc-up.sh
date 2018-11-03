@@ -15,12 +15,32 @@
 # limitations under the License.
 #
 #!/bin/bash
+
+# resolve links - $0 may be a softlink
+PRG="$0"
+RETCODE=0
+
+while [ -h "$PRG" ]; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
+    else
+        PRG=`dirname "$PRG"`/"$link"
+    fi
+done
+
+# Get standard environment variables
+PRGDIR=`dirname "$PRG"`
+
 readonly openshift_release=`cat Vagrantfile | grep '^OPENSHIFT_RELEASE' | awk -F'=' '{print $2}' | sed 's/^[[:blank:]\"]*//;s/[[:blank:]\"]*$//'`
+
+. "$PRGDIR/common.sh"
 
 vagrant up
 vagrant provision --provision-with master-key,node01-key,node02-key
 
-if [ "$openshift_release" \> "3.7" ]; then
+if [ "$(version $openshift_release)" -gt "$(version 3.7)" ]; then
     vagrant ssh master \
         -c 'ansible-playbook /home/vagrant/openshift-ansible/playbooks/prerequisites.yml &&
             ansible-playbook /home/vagrant/openshift-ansible/playbooks/deploy_cluster.yml'
