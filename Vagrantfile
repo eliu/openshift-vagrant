@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-OPENSHIFT_RELEASE = "3.10"
+OPENSHIFT_RELEASE = "3.6"
 OPENSHIFT_ANSIBLE_BRANCH = "release-#{OPENSHIFT_RELEASE}"
 NETWORK_BASE = "192.168.150"
 INTEGRATION_START_SEGMENT = 101
@@ -138,7 +138,7 @@ EOF
         | sed "s/{{NODE_GROUP_COMPUTE}}/${NODE_GROUP_COMPUTE}/g" \
         | sed "s/{{NODE_GROUP_MASTER_INFRA}}/${NODE_GROUP_MASTER_INFRA}/g" \
         | sed "s/{{NODE_GROUP_ALLINONE}}/${NODE_GROUP_ALLINONE}/g" \
-        | sed "s/{{HTPASSWORD_FILENAME}}/${HTPASSWORD_FILENAME}/g" \
+        | sed "s~{{HTPASSWORD_FILENAME}}~${HTPASSWORD_FILENAME}~g" \
         > /etc/ansible/hosts
       
       mkdir -p /home/vagrant/.ssh
