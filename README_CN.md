@@ -2,8 +2,6 @@
 
 [![Licensed under Apache License version 2.0](https://img.shields.io/github/license/openshift/origin.svg?maxAge=2592000)](https://www.apache.org/licenses/LICENSE-2.0)
 
-![image](assets/openshift-vagrant-logo.png)
-
 ---
 
 ## 概述
