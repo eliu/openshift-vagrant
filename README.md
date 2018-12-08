@@ -2,8 +2,6 @@
 
 [![Licensed under Apache License version 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
----
-
 ## Overview
 
 The `OpenShift Vagrant` project aims to make it easy to bring up a real OKD cluster by provisioning pre-configured `Vagrantfile` of several major releases of OKD on your local machine.
@@ -25,6 +23,7 @@ Currently this project pre-configured and support 3 major versions of the OKD, w
 - [OKD v3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
 
 > **Note:**
+>
 > OKD `v3.11.0` is currently **NOT** supported due to RPM repo mis-configurations from `openshift-ansible`. Besides, this version of OKD is more heavier than previous versions, which means you need more RAMs from your local machine in order to keep it up and running normally.
 >
 > You can change the value of `OPENSHIFT_RELEASE` to `3.11` when the RPM issue described above is fixed and the memory of your local machine is large enough (16GB is the best effort). No more configuration is needed.
