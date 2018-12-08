@@ -1,28 +1,33 @@
 # OpenShift Vagrant
 
-[![Licensed under Apache License version 2.0](https://img.shields.io/github/license/openshift/origin.svg?maxAge=2592000)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Licensed under Apache License version 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ---
 
 ## Overview
 
-The `OpenShift Vagrant` project aims to make it easy to bring up a real OpenShift Origin cluster by providing pre-configured `Vagrantfile` of several major versions of Origin on your local machine.
+The `OpenShift Vagrant` project aims to make it easy to bring up a real OKD cluster by provisioning pre-configured `Vagrantfile` of several major releases of OKD on your local machine.
 
-## Prerequisite
+## Prerequisites
 
 - Host machine must have at least 4GB memory
 - Oracle VirtualBox installed on your host machine
 - Vagrant (2.0 or above) installed on your host machine
 - Vagrant plugin `vagrant-hostmanager` must be installed
 
-## OpenShift Origin Version Support
+## OKD Version Support
 
-Currently this project pre-configured and support 3 major versions of the OpenShift Origin, which are
+Currently this project pre-configured and support 3 major versions of the OKD, which are
 
-- [OpenShift Origin 3.10 (default)](https://github.com/openshift/origin/releases/tag/v3.10.0)
-- [OpenShift Origin 3.9](https://github.com/openshift/origin/releases/tag/v3.9.0)
-- [OpenShift Origin 3.7](https://github.com/openshift/origin/releases/tag/v3.7.2)
-- [OpenShift Origin 3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
+- [OKD v3.10 (default)](https://github.com/openshift/origin/releases/tag/v3.10.0)
+- [OKD v3.9](https://github.com/openshift/origin/releases/tag/v3.9.0)
+- [OKD v3.7](https://github.com/openshift/origin/releases/tag/v3.7.2)
+- [OKD v3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
+
+> **Note:**
+> OKD `v3.11.0` is currently **NOT** supported due to RPM repo mis-configurations from `openshift-ansible`. Besides, this version of OKD is more heavier than previous versions, which means you need more RAMs from your local machine in order to keep it up and running normally.
+>
+> You can change the value of `OPENSHIFT_RELEASE` to `3.11` when the RPM issue described above is fixed and the memory of your local machine is large enough (16GB is the best effort). No more configuration is needed.
 
 But, it's very easy to customize the respected ansible hosts file in order to support other incoming major versions.
 
@@ -33,7 +38,7 @@ The `Vagrantfile` uses Origin `3.10` and openshift-ansible `release-3.10` branch
 
 The following table lists the corresponding version relationships between Origin and openshift-ansible:
 
-| OpenShift Origin version | openshift-ansible branch |
+| OKD version | openshift-ansible branch |
 | --- | --- |
 | 3.10.x | release-3.10 |
 | 3.9.x | release-3.9 |
@@ -95,4 +100,4 @@ $ ./oc-up.sh
 
 In browser of your host, open the following page: https://master.example.com:8443/ and you should see OpenShift Web Console login page. The default login account is **admin/handhand**
 
-*Have fun with OpenShift Origin and Vagrant :p*
+*Have fun with OKD and Vagrant :p*
