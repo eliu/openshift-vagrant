@@ -17,16 +17,11 @@ The `OpenShift Vagrant` project aims to make it easy to bring up a real OKD clus
 
 Currently this project pre-configured and support 3 major versions of the OKD, which are
 
+- [OKD v3.11](https://github.com/openshift/origin/releases/tag/v3.11.0)
 - [OKD v3.10 (default)](https://github.com/openshift/origin/releases/tag/v3.10.0)
 - [OKD v3.9](https://github.com/openshift/origin/releases/tag/v3.9.0)
 - [OKD v3.7](https://github.com/openshift/origin/releases/tag/v3.7.2)
 - [OKD v3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
-
-> **Note:**
->
-> OKD `v3.11.0` is currently **NOT** supported due to RPM repo mis-configurations from `openshift-ansible`. Besides, this version of OKD is more heavier than previous versions, which means you need more RAMs from your local machine in order to keep it up and running normally.
->
-> You can change the value of `OPENSHIFT_RELEASE` to `3.11` when the RPM issue described above is fixed and the memory of your local machine is large enough (16GB is the best effort). No more configuration is needed.
 
 But, it's very easy to customize the respected ansible hosts file in order to support other incoming major versions.
 
@@ -39,6 +34,7 @@ The following table lists the corresponding version relationships between Origin
 
 | OKD version | openshift-ansible branch |
 | --- | --- |
+| 3.11.x | release-3.11 |
 | 3.10.x | release-3.10 |
 | 3.9.x | release-3.9 |
 | 3.7.x | release-3.7 |

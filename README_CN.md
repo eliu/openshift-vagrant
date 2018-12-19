@@ -17,16 +17,11 @@
 
 目前本项目预配置且支持以下3个 OKD 主版本，他们是：
 
+- [OKD v3.11](https://github.com/openshift/origin/releases/tag/v3.11.0)
 - [OKD v3.10（默认配置）](https://github.com/openshift/origin/releases/tag/v3.10.0)
 - [OKD v3.9 ](https://github.com/openshift/origin/releases/tag/v3.9.0)
 - [OKD v3.7](https://github.com/openshift/origin/releases/tag/v3.7.2)
 - [OKD v3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
-
-> **注意：**
->
-> 由于 `openshift-ansible` 存在 RPM 仓库的错误配置问题，OKD v3.11.0 目前无法正确部署。此外，这个版本的 OKD 也比之前版本更加“重”，启动它所需的内存也比之前的版本要更多。
->
-> 如果以上问题已经解决并且您本机也有足够的内存（16GB最佳），那么您只需要修改变量 `OPENSHIFT_RELEASE` 的值为 `3.11`即可部署这个版本的集群，无需额外的配置。
 
 不过，支持以后的其他主版本也非常容易，只需要修改对应文件中的版本戳之后另存为新的文件即可。
 
@@ -39,6 +34,7 @@ Vagrant 配置文件默认使用 OKD `3.10` 和 openshift-ansible `release-3.10`
 
 | OKD 版本 | openshift-ansible 分支 |
 | --- | --- |
+| 3.11.x | release-3.11 |
 | 3.10.x | release-3.10 |
 | 3.9.x | release-3.9 |
 | 3.7.x | release-3.7 |
