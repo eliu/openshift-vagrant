@@ -65,8 +65,9 @@ EOF
     . /vagrant/common.sh
     # Fix missing packages for openshift origin 3.11.0
     # https://lists.openshift.redhat.com/openshift-archives/dev/2018-November/msg00005.html
-    [ "$(version #{OPENSHIFT_RELEASE})" -eq "$(version 3.11)" ] && yum install -y centos-release-openshift-origin311
-    
+    if [ "$(version #{OPENSHIFT_RELEASE})" -eq "$(version 3.11)" ]; then
+      yum install -y centos-release-openshift-origin311
+    fi
   SHELL
 
   config.vm.provider "virtualbox" do |vb|
