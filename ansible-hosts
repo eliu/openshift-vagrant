@@ -60,8 +60,8 @@ template_service_broker_install=false
 # Router selector (optional)
 # Router will only be created if nodes matching this label are present.
 # Default value: 'region=infra'
-openshift_router_selector='node-role.kubernetes.io/infra=true'
-openshift_registry_selector='node-role.kubernetes.io/infra=true'
+# openshift_router_selector='node-role.kubernetes.io/infra=true'
+# openshift_registry_selector='node-role.kubernetes.io/infra=true'
 
 # default subdomain to use for exposed routes
 openshift_master_default_subdomain=openshift.example.com
@@ -92,6 +92,6 @@ master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BA
 # from 'region=infra' to 'node-role.kubernetes.io/infra=true'
 #
 [nodes]
-master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true openshift_node_labels="{'node-role.kubernetes.io/infra': 'true', 'node-role.kubernetes.io/master': 'true'}" {{NODE_GROUP_MASTER_INFRA}}
-node01.example.com openshift_ip={{NETWORK_BASE}}.102 openshift_host={{NETWORK_BASE}}.102 ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key" openshift_schedulable=true openshift_node_labels="{'node-role.kubernetes.io/compute': 'true'}" {{NODE_GROUP_COMPUTE}}
-node02.example.com openshift_ip={{NETWORK_BASE}}.103 openshift_host={{NETWORK_BASE}}.103 ansible_ssh_private_key_file="/home/vagrant/.ssh/node02.key" openshift_schedulable=true openshift_node_labels="{'node-role.kubernetes.io/compute': 'true'}" {{NODE_GROUP_COMPUTE}}
+master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true {{NODE_GROUP_MASTER_INFRA}}
+node01.example.com openshift_ip={{NETWORK_BASE}}.102 openshift_host={{NETWORK_BASE}}.102 ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
+node02.example.com openshift_ip={{NETWORK_BASE}}.103 openshift_host={{NETWORK_BASE}}.103 ansible_ssh_private_key_file="/home/vagrant/.ssh/node02.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}

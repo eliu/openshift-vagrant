@@ -8,24 +8,24 @@
 
 ## 先决条件
 
-- 主机的内存至少4GB
+- 主机的内存至少 8GB（OKD `3.11` 需要 16GB）
 - 预装 Oracle VirtualBox (v5.1.30)
 - 预装 Vagrant (v2.0或更高)
 - 预装 Vagrant 插件 vagrant-hostmanager (v1.8.7)
 
 ## OKD 版本支持
 
-目前本项目预配置且支持以下3个 OKD 主版本，他们是：
+目前本项目预配置且支持以下几个 OKD 主版本，他们是：
 
-- [OKD v3.11](https://github.com/openshift/origin/releases/tag/v3.11.0)
-- [OKD v3.10（默认配置）](https://github.com/openshift/origin/releases/tag/v3.10.0)
+- [OKD v3.11（默认配置）](https://github.com/openshift/origin/releases/tag/v3.11.0)
+- [OKD v3.10](https://github.com/openshift/origin/releases/tag/v3.10.0)
 - [OKD v3.9 ](https://github.com/openshift/origin/releases/tag/v3.9.0)
 - [OKD v3.7](https://github.com/openshift/origin/releases/tag/v3.7.2)
 - [OKD v3.6](https://github.com/openshift/origin/releases/tag/v3.6.1)
 
 不过，支持以后的其他主版本也非常容易，只需要修改对应文件中的版本戳之后另存为新的文件即可。
 
-Vagrant 配置文件默认使用 OKD `3.10` 和 openshift-ansible `release-3.10` 分支做为集群安装部署的版本，不过您也可以很容易更改这个默认值，只需要调整以下两个变量即可：
+Vagrant 配置文件默认使用 OKD `3.11` 和 openshift-ansible `release-3.11` 分支做为集群安装部署的版本，不过您也可以很容易更改这个默认值，只需要调整以下两个变量即可：
 
 1. `OPENSHIFT_RELEASE`
 2. `OPENSHIFT_ANSIBLE_BRANCH`

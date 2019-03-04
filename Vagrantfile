@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-OPENSHIFT_RELEASE = "3.10"
+OPENSHIFT_RELEASE = "3.11"
 OPENSHIFT_ANSIBLE_BRANCH = "release-#{OPENSHIFT_RELEASE}"
 NETWORK_BASE = "192.168.150"
 INTEGRATION_START_SEGMENT = 101
@@ -46,32 +46,11 @@ Vagrant.configure("2") do |config|
   config.hostmanager.ignore_private_ip = false
 
   config.vm.provision "shell", inline: <<-SHELL
-    # bash -c 'echo "export TZ=Asia/Shanghai" > /etc/profile.d/tz.sh'
-    
-    setenforce 0
-    sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
-
-    yum -y install docker
-    usermod -aG dockerroot vagrant
-    cat > /etc/docker/daemon.json <<EOF
-{
-    "group": "dockerroot"
-}
-EOF
-    systemctl enable docker
-    systemctl start docker
-
-    # Sourcing common functions
-    . /vagrant/common.sh
-    # Fix missing packages for openshift origin 3.11.0
-    # https://lists.openshift.redhat.com/openshift-archives/dev/2018-November/msg00005.html
-    if [ "$(version #{OPENSHIFT_RELEASE})" -eq "$(version 3.11)" ]; then
-      yum install -y centos-release-openshift-origin311
-    fi
+    /vagrant/all.sh #{OPENSHIFT_RELEASE}
   SHELL
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1024"
+    vb.memory = "2048"
     vb.cpus   = "1"
   end
 
@@ -105,55 +84,11 @@ EOF
     # for mor details.
     #
     node.vm.provider "virtualbox" do |vb|
-      vb.memory = "2048"
+      vb.memory = "3096"
     end
 
     node.vm.provision "shell", inline: <<-SHELL
-      yum -y install git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct
-      
-      # Sourcing common functions
-      . /vagrant/common.sh
-      
-      if [ "$(version #{OPENSHIFT_RELEASE})" -gt "$(version 3.7)" ]; then
-        yum -y install https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.6.6-1.el7.ans.noarch.rpm
-      else
-        yum -y install https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.5.9-1.el7.ans.noarch.rpm
-      fi
-      
-      git clone -b #{OPENSHIFT_ANSIBLE_BRANCH} https://github.com/openshift/openshift-ansible.git /home/vagrant/openshift-ansible
-
-      mv /etc/ansible/hosts /etc/ansible/hosts.bak
-      
-      # Pre-define all possible openshift node groups
-      NODE_GROUP_MASTER="openshift_node_group_name='node-config-master'"
-      NODE_GROUP_INFRA="openshift_node_group_name='node-config-infra'"
-      NODE_GROUP_COMPUTE="openshift_node_group_name='node-config-compute'"
-      NODE_GROUP_MASTER_INFRA="openshift_node_group_name='node-config-master-infra'"
-      NODE_GROUP_ALLINONE="openshift_node_group_name='node-config-all-in-one'"
-      HTPASSWORD_FILENAME=", 'filename': '/etc/origin/master/htpasswd'"
-
-      # Prevent error "provider HTPasswdPasswordIdentityProvider contains unknown keys filename"
-      # when openshift version is 3.10 or above.
-      if [ "$(version #{OPENSHIFT_RELEASE})" -ge "$(version 3.10)" ]; then
-        unset HTPASSWORD_FILENAME
-      fi
-
-      cat /vagrant/ansible-hosts \
-        | sed "s/{{OPENSHIFT_RELEASE}}/#{OPENSHIFT_RELEASE}/g" \
-        | sed "s/{{NETWORK_BASE}}/#{NETWORK_BASE}/g" \
-        | sed "s/{{NODE_GROUP_MASTER}}/${NODE_GROUP_MASTER}/g" \
-        | sed "s/{{NODE_GROUP_INFRA}}/${NODE_GROUP_INFRA}/g" \
-        | sed "s/{{NODE_GROUP_COMPUTE}}/${NODE_GROUP_COMPUTE}/g" \
-        | sed "s/{{NODE_GROUP_MASTER_INFRA}}/${NODE_GROUP_MASTER_INFRA}/g" \
-        | sed "s/{{NODE_GROUP_ALLINONE}}/${NODE_GROUP_ALLINONE}/g" \
-        | sed "s~{{HTPASSWORD_FILENAME}}~${HTPASSWORD_FILENAME}~g" \
-        > /etc/ansible/hosts
-      
-      mkdir -p /home/vagrant/.ssh
-      bash -c 'echo "Host *" >> /home/vagrant/.ssh/config'
-      bash -c 'echo "StrictHostKeyChecking no" >> /home/vagrant/.ssh/config'
-      chmod 600 /home/vagrant/.ssh/config
-      chown -R vagrant:vagrant /home/vagrant
+      /vagrant/master.sh #{OPENSHIFT_RELEASE} #{OPENSHIFT_ANSIBLE_BRANCH} #{NETWORK_BASE}
     SHELL
 
     # Deploy private keys of each node to master
