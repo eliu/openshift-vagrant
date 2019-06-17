@@ -69,8 +69,9 @@ Vagrant.configure("2") do |config|
   # Define master
   config.vm.define "master", primary: true do |node|
     node.vm.network "private_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT}"
-    node.vm.hostname = "master.example.com"
-    node.hostmanager.aliases = %w(etcd.example.com nfs.example.com)
+    # Fix hostname override issue https://github.com/eliu/openshift-vagrant/issues/10
+    # node.vm.hostname = "master.example.com"
+    node.hostmanager.aliases = %w(master.example.com etcd.example.com nfs.example.com)
     
     # 
     # Memory of the master node must be allocated at least 2GB in order to
