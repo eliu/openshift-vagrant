@@ -2,6 +2,12 @@
 
 [![Licensed under Apache License version 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
+> **☞ 通知**
+>
+> 本项目即将进入维护阶段，OKD 版本支持将停留在 `RELEASE-3.11`。事实上，由于我所在的公司的技术选型的变化，我已经有一段时间没有再涉及到 OpenShift 相关的技术了。另外，我的时间和精力也有限。
+>
+> 不过仍然欢迎志同道合的程序猿持续性项本想贡献代码，希望这个项目能让你的工作轻松一点，有时间喝杯咖啡~
+
 ## 概述
 
 `OpenShift Vagrant` 项目旨在通过针对目前 OKD 各个主流版本进行预配置的 `Vagrantfile` 文件，使开发者在本机快速搭建真正的 OKD 集群环境。
