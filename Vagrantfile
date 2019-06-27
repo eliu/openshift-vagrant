@@ -89,6 +89,15 @@ Vagrant.configure("2") do |config|
     end
 
     node.vm.provision "shell", inline: <<-SHELL
+      # Setting hostname manually to prevent "Could not find csr for nodes" error
+      # Issue: https://github.com/eliu/openshift-vagrant/issues/12
+      # Workaround: https://bugzilla.redhat.com/show_bug.cgi?id=1625911#c43
+      hostnamectl set-hostname master.example.com
+
+      # Trick to acclerate the cloning speed from GitHub
+      # echo "151.101.72.249 github.global.ssl.fastly.net" >> /etc/hosts
+      # echo "192.30.253.113 github.com" >> /etc/hosts
+
       /vagrant/master.sh #{OPENSHIFT_RELEASE} #{OPENSHIFT_ANSIBLE_BRANCH} #{NETWORK_BASE}
     SHELL
 

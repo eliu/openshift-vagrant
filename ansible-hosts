@@ -91,7 +91,16 @@ master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BA
 # override the default values of openshift_router_selector and openshift_registry_selector
 # from 'region=infra' to 'node-role.kubernetes.io/infra=true'
 #
+# @update on 2019/06/27
+# Somehow, the etcd is forced to deployed as container form, which caused 
+# "Wait for control plane pods to appear" issue and resulted in failures at last.
+# For more details about this discussions, please visit: 
+#   https://github.com/eliu/openshift-vagrant/issues/10
+# Advice has been taken from the issue discussion above and thanks to @Voronenko !
+# The trick is to add ansible variables "ontainerized=false etcd_ip={ip}" to force 
+# master node use traditional way to install ECTD instead of containerization.
+#
 [nodes]
-master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true {{NODE_GROUP_MASTER_INFRA}}
+master.example.com containerized=false etcd_ip={{NETWORK_BASE}}.101 openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BASE}}.101 ansible_ssh_private_key_file="/home/vagrant/.ssh/master.key" openshift_schedulable=true {{NODE_GROUP_MASTER_INFRA}}
 node01.example.com openshift_ip={{NETWORK_BASE}}.102 openshift_host={{NETWORK_BASE}}.102 ansible_ssh_private_key_file="/home/vagrant/.ssh/node01.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
 node02.example.com openshift_ip={{NETWORK_BASE}}.103 openshift_host={{NETWORK_BASE}}.103 ansible_ssh_private_key_file="/home/vagrant/.ssh/node02.key" openshift_schedulable=true {{NODE_GROUP_COMPUTE}}
