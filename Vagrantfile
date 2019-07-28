@@ -18,7 +18,7 @@
 
 OPENSHIFT_RELEASE = "3.11"
 OPENSHIFT_ANSIBLE_BRANCH = "release-#{OPENSHIFT_RELEASE}"
-NETWORK_BASE = "192.168.150"
+NETWORK_BASE = "192.168.160"
 INTEGRATION_START_SEGMENT = 101
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -72,20 +72,20 @@ Vagrant.configure("2") do |config|
     # Fix hostname override issue https://github.com/eliu/openshift-vagrant/issues/10
     # node.vm.hostname = "master.example.com"
     node.hostmanager.aliases = %w(master.example.com etcd.example.com nfs.example.com)
-    
-    # 
+
+    #
     # Memory of the master node must be allocated at least 2GB in order to
     # prevent kubernetes crashed-down due to 'out of memory' and you'll end
-    # up with 
-    # "Unable to restart service origin-master: Job for origin-master.service 
-    #  failed because a timeout was exceeded. See "systemctl status 
+    # up with
+    # "Unable to restart service origin-master: Job for origin-master.service
+    #  failed because a timeout was exceeded. See "systemctl status
     #  origin-master.service" and "journalctl -xe" for details."
     #
     # See https://github.com/kubernetes/kubernetes/issues/13382#issuecomment-154891888
     # for mor details.
     #
     node.vm.provider "virtualbox" do |vb|
-      vb.memory = "3096"
+      vb.memory = "4096"
     end
 
     node.vm.provision "shell", inline: <<-SHELL
