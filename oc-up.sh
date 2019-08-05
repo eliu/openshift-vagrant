@@ -39,6 +39,8 @@ readonly openshift_release=`cat Vagrantfile | grep '^OPENSHIFT_RELEASE' | awk -F
 
 vagrant up
 vagrant provision --provision-with master-key,node01-key,node02-key
+# Fix permission issue on Windows host (#13)
+vagrant ssh master -c 'chmod 600 /home/vagrant/.ssh/*.key'
 
 if [ "$(version $openshift_release)" -gt "$(version 3.7)" ]; then
     vagrant ssh master \
